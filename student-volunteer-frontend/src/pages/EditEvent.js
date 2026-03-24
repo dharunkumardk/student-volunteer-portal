@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import axios from "axios";
+import API from "../utils/axiosInstance";
 import { useNavigate, useParams } from "react-router-dom";
 import Navbar from "../components/Navbar";
 
@@ -26,8 +26,8 @@ function EditEvent() {
 
   const fetchEvent = async () => {
     try {
-      const response = await axios.get(
-        "http://localhost:5000/api/events",
+      const response = await API.get(
+        `/events`,
         {
           headers: { Authorization: `Bearer ${token}` },
         }
@@ -65,8 +65,8 @@ function EditEvent() {
     e.preventDefault();
 
     try {
-      const response = await axios.put(
-        `http://localhost:5000/api/events/update/${eventId}`,
+      const response = await API.put(
+        `/events/update/${eventId}`,
         formData,
         {
           headers: { Authorization: `Bearer ${token}` },

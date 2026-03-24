@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import axios from "axios";
+import API from "../utils/axiosInstance";
 import Navbar from "../components/Navbar";
 import { jwtDecode } from "jwt-decode";
 
@@ -18,8 +18,8 @@ function Leaderboard() {
 
   const fetchLeaderboard = async () => {
     try {
-      const response = await axios.get(
-        `http://localhost:5000/api/auth/leaderboard?timeFilter=${timeFilter}&category=${category}`,
+      const response = await API.get(
+        `/auth/leaderboard?timeFilter=${timeFilter}&category=${category}`,
         {
           headers: { Authorization: `Bearer ${token}` },
         }
@@ -54,7 +54,7 @@ function Leaderboard() {
         <div className="relative mb-3">
           <div className={`w-16 h-16 ${isFirst ? 'sm:w-20 sm:h-20 border-4 border-amber-400' : 'sm:w-16 sm:h-16 border-4 border-gray-300'} rounded-full overflow-hidden bg-gray-200 dark:bg-slate-700 shadow-xl flex items-center justify-center`}>
             {user.avatar ? (
-              <img src={`http://localhost:5000${user.avatar}`} alt="Avatar" className="w-full h-full object-cover" />
+              <img src={`${process.env.REACT_APP_BACKEND_URL}${user.avatar}`} alt="Avatar" className="w-full h-full object-cover" />
             ) : (
               <span className="text-xl font-bold text-gray-400 dark:text-slate-500">{user.name.charAt(0)}</span>
             )}
@@ -172,7 +172,7 @@ function Leaderboard() {
                         <div className="flex items-center gap-3">
                            <div className="w-10 h-10 rounded-full overflow-hidden bg-gray-200 dark:bg-slate-700 hidden sm:flex items-center justify-center">
                               {user.avatar ? (
-                                <img src={`http://localhost:5000${user.avatar}`} alt="Avatar" className="w-full h-full object-cover" />
+                                <img src={`${process.env.REACT_APP_BACKEND_URL}${user.avatar}`} alt="Avatar" className="w-full h-full object-cover" />
                               ) : (
                                 <span className="text-sm font-bold">{user.name.charAt(0)}</span>
                               )}

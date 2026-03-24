@@ -1,5 +1,5 @@
 import { createContext, useContext, useState, useEffect, useCallback } from "react";
-import axios from "axios";
+import API from "../utils/axiosInstance";
 
 const NotificationContext = createContext();
 
@@ -13,7 +13,7 @@ export const NotificationProvider = ({ children }) => {
   const fetchNotifications = useCallback(async () => {
     if (!token) return;
     try {
-      const response = await axios.get("http://localhost:5000/api/notifications", {
+      const response = await API.get(`/notifications`, {
         headers: { Authorization: `Bearer ${token}` }
       });
       setNotifications(response.data);
@@ -36,7 +36,7 @@ export const NotificationProvider = ({ children }) => {
 
   const markAsRead = async (id) => {
     try {
-      await axios.put(`http://localhost:5000/api/notifications/${id}/read`, {}, {
+      await API.put(`/notifications/${id}/read`, {}, {
         headers: { Authorization: `Bearer ${token}` }
       });
       
@@ -51,7 +51,7 @@ export const NotificationProvider = ({ children }) => {
 
   const markAllAsRead = async () => {
     try {
-      await axios.put(`http://localhost:5000/api/notifications/read-all`, {}, {
+      await API.put(`/notifications/read-all`, {}, {
         headers: { Authorization: `Bearer ${token}` }
       });
       

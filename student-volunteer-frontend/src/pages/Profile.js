@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import axios from "axios";
+import API from "../utils/axiosInstance";
 import Navbar from "../components/Navbar";
 import { PencilIcon, TrashIcon, CheckIcon, XMarkIcon } from "@heroicons/react/24/outline";
 import { AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from "recharts";
@@ -21,8 +21,8 @@ function Profile() {
 
   const fetchProfile = async () => {
     try {
-      const response = await axios.get(
-        "http://localhost:5000/api/auth/me",
+      const response = await API.get(
+        `/auth/me`,
         {
           headers: { Authorization: `Bearer ${token}` },
         }
@@ -41,7 +41,7 @@ function Profile() {
     formData.append("avatar", file);
     setIsUploading(true);
     try {
-      const response = await axios.post("http://localhost:5000/api/auth/upload-avatar", formData, { headers: { Authorization: `Bearer ${token}`, "Content-Type": "multipart/form-data" } });
+      const response = await API.post(`/auth/upload-avatar`, formData, { headers: { Authorization: `Bearer ${token}`, "Content-Type": "multipart/form-data" } });
       setUser(response.data.user);
     } catch (error) {
       alert("Failed to upload avatar.");
@@ -53,7 +53,7 @@ function Profile() {
   const handleRemoveAvatar = async () => {
     if (!window.confirm("Are you sure you want to remove your avatar?")) return;
     try {
-      const response = await axios.put("http://localhost:5000/api/auth/remove-avatar", {}, { headers: { Authorization: `Bearer ${token}` } });
+      const response = await API.put(`/auth/remove-avatar`, {}, { headers: { Authorization: `Bearer ${token}` } });
       setUser(response.data.user);
     } catch (error) {}
   };
@@ -62,7 +62,7 @@ function Profile() {
     if (!editNameValue.trim()) return;
     setIsUpdatingName(true);
     try {
-      const response = await axios.put("http://localhost:5000/api/auth/update-name", { name: editNameValue }, { headers: { Authorization: `Bearer ${token}` } });
+      const response = await API.put(`/auth/update-name`, { name: editNameValue }, { headers: { Authorization: `Bearer ${token}` } });
       setUser(response.data.user);
       setIsEditingName(false);
     } catch (error) {
@@ -80,7 +80,7 @@ function Profile() {
     if (editDetails.bloodGroup) payload.append("bloodGroup", editDetails.bloodGroup);
     if (editDetails.idProof) payload.append("idProof", editDetails.idProof);
     try {
-      const response = await axios.put("http://localhost:5000/api/auth/update-profile", payload, { headers: { Authorization: `Bearer ${token}`, "Content-Type": "multipart/form-data" } });
+      const response = await API.put(`/auth/update-profile`, payload, { headers: { Authorization: `Bearer ${token}`, "Content-Type": "multipart/form-data" } });
       setUser({ ...user, ...response.data.user });
       setIsEditingDetails(false);
     } catch (err) {
@@ -104,7 +104,7 @@ function Profile() {
                 <div className="relative group mx-auto sm:mx-0">
                   <div className="w-24 h-24 rounded-full overflow-hidden bg-gray-200 dark:bg-slate-700 border-4 border-white dark:border-slate-800 shadow-md shrink-0 flex items-center justify-center">
                     {user.avatar ? (
-                      <img src={`http://localhost:5000${user.avatar}`} alt="Avatar" className="w-full h-full object-cover" />
+                      <img src={`${process.env.REACT_APP_BACKEND_URL}${user.avatar}`} alt="Avatar" className="w-full h-full object-cover" />
                     ) : (
                       <span className="text-4xl font-bold text-gray-400 dark:text-slate-500">{user.name?.charAt(0).toUpperCase()}</span>
                     )}
@@ -170,7 +170,7 @@ function Profile() {
                     <div className="bg-slate-50 dark:bg-slate-800/50 p-3 rounded-lg flex justify-between items-center">
                       <span className="text-xs font-bold text-gray-500 uppercase">ID Proof</span>
                       {user.idProof ? (
-                        <a href={`http://localhost:5000${user.idProof}`} target="_blank" rel="noreferrer" className="text-indigo-600 text-sm font-bold hover:underline">
+                        <a href={`${process.env.REACT_APP_BACKEND_URL}${user.idProof}`} target="_blank" rel="noreferrer" className="text-indigo-600 text-sm font-bold hover:underline">
                           View Doc
                         </a>
                       ) : (

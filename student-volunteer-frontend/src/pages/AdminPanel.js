@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import axios from "axios";
+import API from "../utils/axiosInstance";
 import Navbar from "../components/Navbar";
 
 function AdminPanel() {
@@ -16,8 +16,8 @@ function AdminPanel() {
   }, []);
 
   const fetchUsers = async () => {
-    const res = await axios.get(
-      "http://localhost:5000/api/auth/all-users",
+    const res = await API.get(
+      `/auth/all-users`,
       {
         headers: { Authorization: `Bearer ${token}` },
       }
@@ -26,8 +26,8 @@ function AdminPanel() {
   };
 
   const fetchEvents = async () => {
-    const res = await axios.get(
-      "http://localhost:5000/api/events",
+    const res = await API.get(
+      `/events`,
       {
         headers: { Authorization: `Bearer ${token}` },
       }
@@ -38,8 +38,8 @@ function AdminPanel() {
   const deleteUser = async (id) => {
     if (!window.confirm("Delete this user?")) return;
 
-    await axios.delete(
-      `http://localhost:5000/api/auth/delete-user/${id}`,
+    await API.delete(
+      `/auth/delete-user/${id}`,
       {
         headers: { Authorization: `Bearer ${token}` },
       }
@@ -51,8 +51,8 @@ function AdminPanel() {
   const deleteEvent = async (id) => {
     if (!window.confirm("Delete this event?")) return;
 
-    await axios.delete(
-      `http://localhost:5000/api/events/delete/${id}`,
+    await API.delete(
+      `/events/delete/${id}`,
       {
         headers: { Authorization: `Bearer ${token}` },
       }

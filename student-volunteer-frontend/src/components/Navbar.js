@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { jwtDecode } from "jwt-decode";
-import axios from "axios";
+import API from "../utils/axiosInstance";
 import { useTheme } from "../context/ThemeContext";
 import { useNotifications } from "../context/NotificationContext";
 import NotificationDropdown from "./NotificationDropdown";
@@ -35,7 +35,7 @@ function Navbar() {
   useEffect(() => {
     const fetchUser = async () => {
       try {
-        const response = await axios.get("http://localhost:5000/api/auth/me", {
+        const response = await API.get(`/auth/me`, {
           headers: { Authorization: `Bearer ${token}` }
         });
         setUserProfile(response.data);
@@ -149,7 +149,7 @@ function Navbar() {
           >
             <div className="w-10 h-10 rounded-full overflow-hidden bg-gray-200 dark:bg-slate-700 border-2 border-white dark:border-slate-800 shadow-sm shrink-0 flex items-center justify-center">
               {userProfile?.avatar ? (
-                <img src={`http://localhost:5000${userProfile.avatar}`} alt="Avatar" className="w-full h-full object-cover" />
+                <img src={`${process.env.REACT_APP_BACKEND_URL}${userProfile.avatar}`} alt="Avatar" className="w-full h-full object-cover" />
               ) : (
                 <span className="text-sm font-bold text-gray-500 dark:text-slate-400">
                   {userProfile?.name?.charAt(0).toUpperCase() || decoded.role.charAt(0).toUpperCase()}

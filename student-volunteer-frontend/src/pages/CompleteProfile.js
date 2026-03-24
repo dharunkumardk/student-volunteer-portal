@@ -1,5 +1,5 @@
 import { useState } from "react";
-import axios from "axios";
+import API from "../utils/axiosInstance";
 import { useNavigate } from "react-router-dom";
 import Navbar from "../components/Navbar";
 
@@ -41,7 +41,7 @@ function CompleteProfile() {
     payload.append("idProof", file);
 
     try {
-      await axios.put("http://localhost:5000/api/auth/complete-profile", payload, {
+      await API.put(`/auth/complete-profile`, payload, {
         headers: {
           Authorization: `Bearer ${token}`,
           "Content-Type": "multipart/form-data"

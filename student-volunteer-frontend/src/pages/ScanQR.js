@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { Html5QrcodeScanner } from "html5-qrcode";
-import axios from "axios";
+import API from "../utils/axiosInstance";
 import Navbar from "../components/Navbar";
 
 function ScanQR() {
@@ -26,8 +26,8 @@ function ScanQR() {
         try {
           const parsed = JSON.parse(decodedText);
 
-          const response = await axios.post(
-            `http://localhost:5000/api/events/attendance/${parsed.eventId}`,
+          const response = await API.post(
+            `/events/attendance/${parsed.eventId}`,
             {},
             {
               headers: { Authorization: `Bearer ${token}` },

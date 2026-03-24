@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import axios from "axios";
+import API from "../utils/axiosInstance";
 import { useNavigate } from "react-router-dom";
 import Navbar from "../components/Navbar";
 
@@ -31,7 +31,7 @@ function CreateEvent() {
   useEffect(() => {
     const checkProfile = async () => {
       try {
-        const res = await axios.get("http://localhost:5000/api/auth/me", {
+        const res = await API.get(`/auth/me`, {
           headers: { Authorization: `Bearer ${token}` }
         });
         if (!res.data.profileCompleted || !res.data.phone || !res.data.dob) {
@@ -57,8 +57,8 @@ function CreateEvent() {
 
     try {
 
-      await axios.post(
-        "http://localhost:5000/api/events/create",
+      await API.post(
+        `/events/create`,
         formData,
         {
           headers: { Authorization: `Bearer ${token}` }

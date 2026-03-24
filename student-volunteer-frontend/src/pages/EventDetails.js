@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import axios from "axios";
+import API from "../utils/axiosInstance";
 import { useParams, useNavigate } from "react-router-dom";
 import { jwtDecode } from "jwt-decode";
 import Navbar from "../components/Navbar";
@@ -30,7 +30,7 @@ function EventDetails() {
 
   const fetchEventDetails = async () => {
     try {
-      const response = await axios.get(`http://localhost:5000/api/events/${eventId}`, {
+      const response = await API.get(`/events/${eventId}`, {
         headers: { Authorization: `Bearer ${token}` }
       });
       setEvent(response.data);
@@ -41,7 +41,7 @@ function EventDetails() {
 
   const fetchFeedback = async () => {
     try {
-      const response = await axios.get(`http://localhost:5000/api/events/${eventId}/feedback`, {
+      const response = await API.get(`/events/${eventId}/feedback`, {
         headers: { Authorization: `Bearer ${token}` }
       });
       setFeedbacks(response.data.feedbacks);
@@ -59,7 +59,7 @@ function EventDetails() {
       return;
     }
     try {
-      await axios.post(`http://localhost:5000/api/events/${eventId}/feedback`, {
+      await API.post(`/events/${eventId}/feedback`, {
         rating, comment
       }, {
         headers: { Authorization: `Bearer ${token}` }

@@ -1,5 +1,5 @@
 import { useState } from "react";
-import axios from "axios";
+import API from "../utils/axiosInstance";
 import { useNavigate, Link } from "react-router-dom";
 
 function Register() {
@@ -24,8 +24,8 @@ function Register() {
 
     try {
 
-      const response = await axios.post(
-        "http://localhost:5000/api/auth/send-otp",
+      const response = await API.post(
+        `/auth/send-otp`,
         form
       );
 

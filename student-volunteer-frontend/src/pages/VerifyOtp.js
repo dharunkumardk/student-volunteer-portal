@@ -1,5 +1,5 @@
 import { useState, useRef, useEffect } from "react";
-import axios from "axios";
+import API from "../utils/axiosInstance";
 import { useNavigate, useLocation } from "react-router-dom";
 
 function VerifyOtp() {
@@ -48,8 +48,8 @@ function VerifyOtp() {
     const otpValue = otp.join("");
 
     try {
-      await axios.post(
-        "http://localhost:5000/api/auth/verify-otp",
+      await API.post(
+        `/auth/verify-otp`,
         { email, otp: otpValue }
       );
 
@@ -62,8 +62,8 @@ function VerifyOtp() {
 
   const resendOtp = async () => {
     try {
-      await axios.post(
-        "http://localhost:5000/api/auth/send-otp",
+      await API.post(
+        `/auth/send-otp`,
         { email }
       );
 

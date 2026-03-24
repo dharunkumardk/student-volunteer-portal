@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import axios from "axios";
+import API from "../utils/axiosInstance";
 import { useNavigate } from "react-router-dom";
 import { jwtDecode } from "jwt-decode";
 import Navbar from "../components/Navbar";
@@ -27,8 +27,8 @@ function Dashboard() {
 
   const fetchUser = async () => {
     try {
-      const response = await axios.get(
-        "http://localhost:5000/api/auth/me",
+      const response = await API.get(
+        `/auth/me`,
         {
           headers: { Authorization: `Bearer ${token}` },
         }
@@ -41,8 +41,8 @@ function Dashboard() {
 
   const fetchEvents = async () => {
     try {
-      const response = await axios.get(
-        "http://localhost:5000/api/events",
+      const response = await API.get(
+        `/events`,
         {
           headers: { Authorization: `Bearer ${token}` },
         }
@@ -55,8 +55,8 @@ function Dashboard() {
 
   const handleJoin = async (eventId) => {
     try {
-      const response = await axios.post(
-        `http://localhost:5000/api/events/join/${eventId}`,
+      const response = await API.post(
+        `/events/join/${eventId}`,
         {},
         { headers: { Authorization: `Bearer ${token}` } }
       );
@@ -73,8 +73,8 @@ function Dashboard() {
 
   const handleLeave = async (eventId) => {
     try {
-      const response = await axios.post(
-        `http://localhost:5000/api/events/leave/${eventId}`,
+      const response = await API.post(
+        `/events/leave/${eventId}`,
         {},
         { headers: { Authorization: `Bearer ${token}` } }
       );
@@ -92,8 +92,8 @@ function Dashboard() {
       );
       if (!confirmDelete) return;
 
-      const response = await axios.delete(
-        `http://localhost:5000/api/events/delete/${eventId}`,
+      const response = await API.delete(
+        `/events/delete/${eventId}`,
         { headers: { Authorization: `Bearer ${token}` } }
       );
 
@@ -106,8 +106,8 @@ function Dashboard() {
 
   const handleComplete = async (eventId) => {
     try {
-      const response = await axios.put(
-        `http://localhost:5000/api/events/complete/${eventId}`,
+      const response = await API.put(
+        `/events/complete/${eventId}`,
         {},
         { headers: { Authorization: `Bearer ${token}` } }
       );

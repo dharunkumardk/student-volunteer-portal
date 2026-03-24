@@ -1,6 +1,6 @@
 const express = require("express");
 const Event = require("../models/Event.js");
-const User = require("../models/User.js");
+const User = require("../models/user.js");
 const Notification = require("../models/Notification.js");
 const ActivityLog = require("../models/ActivityLog.js");
 const authMiddleware = require("../middleware/authMiddleware.js");
@@ -99,7 +99,7 @@ router.get("/", authMiddleware, async (req, res) => {
 // ANALYTICS
 router.get("/analytics", authMiddleware, async (req, res) => {
   try {
-    const User = require("../models/User");
+    const User = require("../models/user");
 
     const totalUsers = await User.countDocuments();
     const totalEvents = await Event.countDocuments();
@@ -357,7 +357,7 @@ router.put("/complete/:eventId", authMiddleware, async (req, res) => {
       return res.status(403).json({ message: "Only organizers and admins can complete events" });
     }
 
-    const User = require("../models/User");
+    const User = require("../models/user");
 
     const event = await Event.findById(req.params.eventId);
 

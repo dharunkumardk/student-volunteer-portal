@@ -1,9 +1,9 @@
 const express = require("express");
-const Event = require("../models/Event");
-const User = require("../models/User");
-const Notification = require("../models/Notification");
-const ActivityLog = require("../models/ActivityLog");
-const authMiddleware = require("../middleware/authMiddleware");
+const Event = require("../models/Event.js");
+const User = require("../models/User.js");
+const Notification = require("../models/Notification.js");
+const ActivityLog = require("../models/ActivityLog.js");
+const authMiddleware = require("../middleware/authMiddleware.js");
 
 const router = express.Router();
 

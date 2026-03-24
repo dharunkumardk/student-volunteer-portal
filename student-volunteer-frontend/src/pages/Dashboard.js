@@ -131,10 +131,10 @@ function Dashboard() {
       <div className="max-w-6xl mx-auto p-6 mt-8">
         <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-10 gap-4">
           <div>
-            <h2 className="text-3xl font-extrabold text-gray-900 dark:text-white tracking-tight">
+            <h2 className="text-4xl font-extrabold text-gray-900 dark:text-white tracking-tight drop-shadow-sm">
               Dashboard
             </h2>
-            <p className="text-gray-500 dark:text-gray-400 mt-1">Discover and manage your volunteer events</p>
+            <p className="text-gray-500 dark:text-gray-400 mt-2 font-medium text-lg">Discover and manage your volunteer events</p>
           </div>
           
           {/* ✅ HOURS DISPLAY */}
@@ -150,10 +150,12 @@ function Dashboard() {
         </div>
 
         {events.length === 0 && (
-          <div className="text-center py-20 bg-white dark:bg-slate-800 rounded-3xl border border-gray-100 dark:border-slate-700 shadow-sm">
-            <div className="text-5xl mb-4">📭</div>
-            <h3 className="text-xl font-bold text-gray-800 dark:text-gray-200 mb-2">No events available right now</h3>
-            <p className="text-gray-500 dark:text-gray-400">Check back later for new volunteer opportunities.</p>
+          <div className="text-center py-24 bg-white dark:bg-slate-800/80 backdrop-blur-xl rounded-3xl border border-gray-100 dark:border-slate-700 shadow-[0_8px_30px_rgb(0,0,0,0.04)] dark:shadow-[0_8px_30px_rgb(0,0,0,0.2)]">
+            <div className="w-24 h-24 mx-auto bg-indigo-50 dark:bg-indigo-900/30 rounded-full flex items-center justify-center text-5xl mb-6 shadow-inner">
+              📭
+            </div>
+            <h3 className="text-2xl font-extrabold tracking-tight text-gray-900 dark:text-white mb-2">No events available</h3>
+            <p className="text-gray-500 dark:text-gray-400 font-medium">Check back later for new volunteer opportunities.</p>
           </div>
         )}
 
@@ -173,7 +175,7 @@ function Dashboard() {
             return (
               <div
                 key={event._id}
-                className="bg-white dark:bg-slate-800 rounded-2xl p-6 border border-gray-100/60 dark:border-slate-700/60 shadow-sm hover:shadow-xl dark:hover:shadow-indigo-900/20 hover:-translate-y-1 transition-all duration-300 flex flex-col"
+                className="group bg-white dark:bg-slate-800/90 rounded-3xl p-7 border border-gray-100 dark:border-slate-700/50 shadow-[0_4px_20px_rgb(0,0,0,0.03)] hover:shadow-[0_20px_40px_rgb(0,0,0,0.08)] dark:shadow-[0_4px_20px_rgb(0,0,0,0.2)] dark:hover:shadow-[0_20px_40px_rgba(99,102,241,0.15)] hover:-translate-y-1.5 transition-all duration-300 flex flex-col"
               >
                 <div className="flex justify-between items-start mb-4">
                   <div className="mt-1 flex gap-2">
@@ -235,21 +237,21 @@ function Dashboard() {
                       {alreadyJoined ? (
                         <button
                           onClick={() => handleLeave(event._id)}
-                          className="flex-1 bg-white dark:bg-slate-800 border-2 border-rose-100 dark:border-rose-900/50 text-rose-600 dark:text-rose-400 hover:bg-rose-50 dark:hover:bg-rose-900/20 hover:border-rose-200 py-2 px-4 rounded-xl font-semibold transition-colors focus:ring-4 focus:ring-rose-50 dark:focus:ring-rose-900/30"
+                          className="flex-1 bg-white dark:bg-slate-800 border border-rose-200 dark:border-rose-900/50 text-rose-600 dark:text-rose-400 hover:bg-rose-50 dark:hover:bg-rose-900/20 hover:border-rose-300 py-2.5 px-4 rounded-xl font-bold shadow-sm active:scale-[0.98] transition-all focus:ring-2 focus:ring-rose-500 focus:ring-offset-2 dark:focus:ring-offset-slate-900"
                         >
                           Leave Event
                         </button>
                       ) : isFull ? (
                         <button
                           disabled
-                          className="flex-1 bg-gray-100 dark:bg-slate-700 text-gray-400 dark:text-gray-500 py-2 px-4 rounded-xl font-semibold cursor-not-allowed"
+                          className="flex-1 bg-gray-100 dark:bg-slate-700 text-gray-400 dark:text-gray-500 py-2.5 px-4 rounded-xl font-bold cursor-not-allowed"
                         >
                           Event Full
                         </button>
                       ) : (
                         <button
                           onClick={() => handleJoin(event._id)}
-                          className="flex-1 bg-indigo-600 hover:bg-indigo-700 text-white py-2 px-4 rounded-xl font-semibold shadow-sm shadow-indigo-200 dark:shadow-none transition-colors focus:ring-4 focus:ring-indigo-100 dark:focus:ring-indigo-900/30"
+                          className="flex-1 bg-gradient-to-r from-indigo-600 to-indigo-500 hover:from-indigo-700 hover:to-indigo-600 text-white py-2.5 px-4 rounded-xl font-bold shadow-lg shadow-indigo-600/20 hover:shadow-indigo-600/30 active:scale-[0.98] transition-all focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 dark:focus:ring-offset-slate-900"
                         >
                           Join Event
                         </button>
@@ -291,7 +293,7 @@ function Dashboard() {
 
                   <button
                     onClick={() => navigate(`/event/${event._id}`)}
-                    className="w-full mt-3 bg-gray-50 dark:bg-slate-700/50 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-slate-700 py-2 px-4 rounded-xl font-semibold border border-gray-200 dark:border-slate-600 transition-colors focus:ring-4 focus:ring-gray-100 dark:focus:ring-slate-800"
+                    className="w-full mt-4 bg-gray-50 dark:bg-slate-800 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-slate-700 py-2.5 px-4 rounded-xl font-bold border border-gray-200 dark:border-slate-600 active:scale-[0.98] transition-all focus:ring-2 focus:ring-gray-400 focus:ring-offset-2 dark:focus:ring-offset-slate-900 group-hover:border-gray-300 dark:group-hover:border-slate-500"
                   >
                     View Details & Feedback
                   </button>

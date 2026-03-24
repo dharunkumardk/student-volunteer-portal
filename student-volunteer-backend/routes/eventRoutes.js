@@ -2,6 +2,7 @@ const express = require("express");
 const Event = require("../models/Event");
 const User = require("../models/User");
 const Notification = require("../models/Notification");
+const ActivityLog = require("../models/ActivityLog");
 const authMiddleware = require("../middleware/authMiddleware");
 
 const router = express.Router();
@@ -14,7 +15,7 @@ router.post("/create", authMiddleware, async (req, res) => {
     }
 
     const currentUser = await User.findById(req.user.id);
-    if (!currentUser || !currentUser.profileCompleted) {
+    if (!currentUser || !currentUser.profileCompleted || !currentUser.phone || !currentUser.dob) {
       return res.status(403).json({ message: "Please complete your profile to create an event." });
     }
 
@@ -95,6 +96,50 @@ router.get("/", authMiddleware, async (req, res) => {
   }
 });
 
+// ANALYTICS
+router.get("/analytics", authMiddleware, async (req, res) => {
+  try {
+    const User = require("../models/User");
+
+    const totalUsers = await User.countDocuments();
+    const totalEvents = await Event.countDocuments();
+    // Fetch only the needed fields for dynamic status calculation and volunteer counts
+    const events = await Event.find({}, { date: 1, time: 1, hours: 1, volunteers: 1 }).lean();
+
+    let completedEvents = 0;
+    let upcomingEvents = 0;
+    let ongoingEvents = 0;
+    let totalVolunteers = 0;
+
+    events.forEach(event => {
+       const status = getDynamicStatus(event);
+       if (status === "completed") completedEvents++;
+       else if (status === "upcoming") upcomingEvents++;
+       else if (status === "ongoing") ongoingEvents++;
+       
+       totalVolunteers += (event.volunteers ? event.volunteers.length : 0);
+    });
+
+    // Optimize total hours by aggregating in MongoDB instead of loading all users
+    const hoursAgg = await User.aggregate([
+      { $group: { _id: null, total: { $sum: "$totalHours" } } }
+    ]);
+    const totalHours = hoursAgg.length > 0 ? hoursAgg[0].total : 0;
+
+    res.json({
+      totalUsers,
+      totalEvents,
+      completedEvents,
+      upcomingEvents,
+      totalVolunteers,
+      totalHours,
+    });
+
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
+
 // GET SINGLE EVENT
 router.get("/:eventId", authMiddleware, async (req, res) => {
   try {
@@ -160,6 +205,14 @@ router.post("/join/:eventId", authMiddleware, async (req, res) => {
 
     event.volunteers.push(req.user.id);
     await event.save();
+
+    // 📝 Log Activity
+    await ActivityLog.create({
+      user: req.user.id,
+      action: "joined",
+      event: event._id,
+      description: `Joined event "${event.title}"`
+    });
 
     // 🔔 Notify the Organizer who created the event
     await Notification.create({
@@ -332,7 +385,22 @@ router.put("/complete/:eventId", authMiddleware, async (req, res) => {
       await User.findByIdAndUpdate(studentId, {
         $inc: { totalHours: event.hours }
       });
+
+      await ActivityLog.create({
+        user: studentId,
+        action: "earned_hours",
+        event: event._id,
+        hours: event.hours,
+        description: `Earned ${event.hours} hours from "${event.title}"`
+      });
     }
+
+    await ActivityLog.create({
+      user: req.user.id,
+      action: "completed_event",
+      event: event._id,
+      description: `Successfully completed event "${event.title}"`
+    });
 
     event.hoursDistributed = true;
     await event.save();
@@ -351,54 +419,6 @@ router.put("/complete/:eventId", authMiddleware, async (req, res) => {
 
     res.json({
       message: "Event completed. Hours added to attendees only."
-    });
-
-  } catch (error) {
-    res.status(500).json({ error: error.message });
-  }
-});
-// ANALYTICS (Admin only)
-router.get("/analytics", authMiddleware, async (req, res) => {
-  try {
-    if (req.user.role !== "admin") {
-      return res.status(403).json({ message: "Admin access only" });
-    }
-
-    const User = require("../models/User");
-
-    const totalUsers = await User.countDocuments();
-    const totalEvents = await Event.countDocuments();
-    const events = await Event.find();
-
-    let completedEvents = 0;
-    let upcomingEvents = 0;
-    let ongoingEvents = 0;
-
-    events.forEach(event => {
-       const status = getDynamicStatus(event);
-       if (status === "completed") completedEvents++;
-       else if (status === "upcoming") upcomingEvents++;
-       else if (status === "ongoing") ongoingEvents++;
-    });
-
-    const totalVolunteers = events.reduce(
-      (sum, event) => sum + event.volunteers.length,
-      0
-    );
-
-    const users = await User.find();
-    const totalHours = users.reduce(
-      (sum, user) => sum + (user.totalHours || 0),
-      0
-    );
-
-    res.json({
-      totalUsers,
-      totalEvents,
-      completedEvents,
-      upcomingEvents,
-      totalVolunteers,
-      totalHours,
     });
 
   } catch (error) {

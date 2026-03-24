@@ -78,15 +78,15 @@ function AdminPanel() {
       <div className="max-w-7xl mx-auto p-6 mt-8">
         {/* TITLE */}
         <div className="mb-8">
-          <h2 className="text-3xl font-extrabold text-gray-900 dark:text-white tracking-tight">
+          <h2 className="text-4xl font-extrabold text-gray-900 dark:text-white tracking-tight drop-shadow-sm">
             Admin Dashboard
           </h2>
-          <p className="text-gray-500 dark:text-gray-400 mt-1">Platform statistics and management</p>
+          <p className="text-gray-500 dark:text-gray-400 mt-2 font-medium text-lg">Platform statistics and management</p>
         </div>
 
         {/* STATISTICS CARDS */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-10">
-          <div className="bg-white dark:bg-slate-800 p-6 rounded-2xl shadow-sm border border-gray-100 dark:border-slate-700 flex items-center justify-between">
+          <div className="bg-white dark:bg-slate-800/90 backdrop-blur-xl p-7 rounded-[2rem] shadow-[0_4px_20px_rgb(0,0,0,0.03)] dark:shadow-[0_4px_20px_rgb(0,0,0,0.2)] border border-gray-100 dark:border-slate-700/50 flex items-center justify-between hover:-translate-y-1 transition-all duration-300">
             <div>
               <h4 className="text-sm font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider mb-1">Total Users</h4>
               <p className="text-4xl font-extrabold text-indigo-600 dark:text-indigo-400">{totalUsers}</p>
@@ -128,9 +128,9 @@ function AdminPanel() {
         </div>
 
         {/* USERS TABLE */}
-        <div className="bg-white dark:bg-slate-800 rounded-3xl shadow-sm border border-gray-100 dark:border-slate-700 mb-10 overflow-hidden">
-          <div className="p-6 border-b border-gray-100 dark:border-slate-700 bg-white dark:bg-slate-800">
-            <h3 className="text-xl font-bold text-gray-900 dark:text-white">Users Management</h3>
+        <div className="bg-white dark:bg-slate-800/90 backdrop-blur-xl rounded-[2rem] shadow-[0_8px_30px_rgb(0,0,0,0.04)] dark:shadow-[0_8px_30px_rgb(0,0,0,0.2)] border border-gray-100 dark:border-slate-700/50 mb-10 overflow-hidden">
+          <div className="p-8 border-b border-gray-100 dark:border-slate-700/50">
+            <h3 className="text-2xl font-bold tracking-tight text-gray-900 dark:text-white">Users Management</h3>
           </div>
           <div className="overflow-x-auto">
             <table className="w-full text-left border-collapse">
@@ -178,9 +178,9 @@ function AdminPanel() {
         </div>
 
         {/* EVENTS TABLE */}
-        <div className="bg-white dark:bg-slate-800 rounded-3xl shadow-sm border border-gray-100 dark:border-slate-700 overflow-hidden">
-          <div className="p-6 border-b border-gray-100 dark:border-slate-700 bg-white dark:bg-slate-800">
-            <h3 className="text-xl font-bold text-gray-900 dark:text-white">Events Management</h3>
+        <div className="bg-white dark:bg-slate-800/90 backdrop-blur-xl rounded-[2rem] shadow-[0_8px_30px_rgb(0,0,0,0.04)] dark:shadow-[0_8px_30px_rgb(0,0,0,0.2)] border border-gray-100 dark:border-slate-700/50 overflow-hidden">
+          <div className="p-8 border-b border-gray-100 dark:border-slate-700/50">
+            <h3 className="text-2xl font-bold tracking-tight text-gray-900 dark:text-white">Events Management</h3>
           </div>
           <div className="overflow-x-auto">
             <table className="w-full text-left border-collapse">

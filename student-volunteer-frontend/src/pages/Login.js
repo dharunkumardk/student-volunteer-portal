@@ -62,7 +62,7 @@ function Login() {
       <div className="absolute top-[20%] right-[-10%] w-96 h-96 bg-purple-300 dark:bg-purple-900/50 rounded-full mix-blend-multiply dark:mix-blend-lighten filter blur-3xl opacity-30 dark:opacity-20 animate-blob animation-delay-2000"></div>
       <div className="absolute bottom-[-20%] left-[20%] w-96 h-96 bg-pink-300 dark:bg-pink-900/50 rounded-full mix-blend-multiply dark:mix-blend-lighten filter blur-3xl opacity-30 dark:opacity-20 animate-blob animation-delay-4000"></div>
 
-      <div className="bg-white/80 dark:bg-slate-800/80 p-10 rounded-3xl shadow-2xl w-full max-w-md backdrop-blur-xl border border-white dark:border-slate-700/50 z-10 transition-colors duration-300">
+      <div className="glass dark:glass-dark p-10 rounded-[2rem] w-full max-w-md z-10 transition-all duration-300">
 
         <div className="mb-8 text-center">
           <div className="w-16 h-16 bg-indigo-600 rounded-2xl flex items-center justify-center shadow-lg shadow-indigo-200 dark:shadow-none text-white font-bold text-3xl mx-auto mb-4">
@@ -154,7 +154,7 @@ function Login() {
           {/* BUTTON */}
           <button
             type="submit"
-            className="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-3 px-4 rounded-xl shadow-lg shadow-indigo-200 dark:shadow-none transition-all active:scale-[0.98]"
+            className="w-full bg-gradient-to-r from-indigo-600 to-indigo-500 hover:from-indigo-700 hover:to-indigo-600 text-white font-bold py-3.5 px-4 rounded-xl shadow-lg shadow-indigo-600/20 hover:shadow-indigo-600/30 transition-all active:scale-[0.98] focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 dark:focus:ring-offset-slate-900"
           >
             Sign In
           </button>

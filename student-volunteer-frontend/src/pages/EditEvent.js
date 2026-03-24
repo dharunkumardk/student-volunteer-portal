@@ -84,7 +84,7 @@ function EditEvent() {
     <div className="min-h-screen bg-gray-100 dark:bg-slate-900 transition-colors duration-300">
       <Navbar />
 
-      <div className="max-w-md mx-auto bg-white dark:bg-slate-800 p-6 mt-10 rounded-xl shadow dark:shadow-none dark:border dark:border-slate-700">
+      <div className="max-w-md mx-auto bg-white dark:bg-slate-800/90 backdrop-blur-xl p-10 mt-10 rounded-[2rem] shadow-[0_8px_30px_rgb(0,0,0,0.04)] dark:shadow-[0_8px_30px_rgb(0,0,0,0.2)] border border-gray-100 dark:border-slate-700/50 transition-all duration-300">
         <h2 className="text-2xl font-bold mb-4 text-slate-900 dark:text-white">Edit Event</h2>
 
         <form onSubmit={handleSubmit} className="space-y-4">
@@ -154,7 +154,7 @@ function EditEvent() {
 
           <button
             type="submit"
-            className="w-full bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 rounded transition"
+            className="w-full bg-gradient-to-r from-indigo-600 to-indigo-500 hover:from-indigo-700 hover:to-indigo-600 text-white font-bold py-3.5 px-4 rounded-xl shadow-lg shadow-indigo-600/20 hover:shadow-indigo-600/30 transition-all active:scale-[0.98] focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 dark:focus:ring-offset-slate-900 mt-4"
           >
             Update Event
           </button>

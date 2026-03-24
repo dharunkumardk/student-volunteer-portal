@@ -55,7 +55,7 @@ function Notifications() {
         </div>
 
         {/* List */}
-        <div className="bg-white dark:bg-slate-800 rounded-3xl shadow-xl shadow-gray-200/50 dark:shadow-slate-900/50 border border-gray-100 dark:border-slate-700 overflow-hidden transition-colors duration-300">
+        <div className="bg-white dark:bg-slate-800/90 backdrop-blur-xl rounded-[2rem] shadow-[0_8px_30px_rgb(0,0,0,0.04)] dark:shadow-[0_8px_30px_rgb(0,0,0,0.2)] border border-gray-100 dark:border-slate-700/50 overflow-hidden transition-all duration-300">
           {notifications.length === 0 ? (
             <div className="px-6 py-20 text-center flex flex-col items-center">
               <div className="w-20 h-20 bg-gray-50 dark:bg-slate-700/50 rounded-full flex items-center justify-center mb-4">

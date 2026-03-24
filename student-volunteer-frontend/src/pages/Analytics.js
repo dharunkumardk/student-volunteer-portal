@@ -30,6 +30,7 @@ function Analytics() {
     sessionStorage.getItem("token");
 
   const [data, setData] = useState(null);
+  const [errorMsg, setErrorMsg] = useState(null);
 
   useEffect(() => {
     fetchAnalytics();
@@ -43,13 +44,18 @@ function Analytics() {
           headers: { Authorization: `Bearer ${token}` }
         }
       );
-
       setData(response.data);
-
     } catch (error) {
       console.log(error);
+      setErrorMsg(error.response?.data?.message || error.message || "Failed to load analytics");
     }
   };
+
+  if (errorMsg) return (
+    <div className="min-h-screen flex items-center justify-center text-red-500 text-xl font-bold bg-slate-50 dark:bg-slate-900 transition-colors duration-300">
+      Error: {errorMsg}
+    </div>
+  );
 
   if (!data) return (
     <div className="min-h-screen flex items-center justify-center text-zinc-500 dark:text-zinc-400 bg-slate-50 dark:bg-slate-900 transition-colors duration-300">
@@ -118,7 +124,7 @@ function Analytics() {
             return (
               <div
                 key={index}
-                className="bg-white dark:bg-slate-800 rounded-2xl border border-gray-100 dark:border-slate-700 shadow-sm p-6 flex flex-col justify-between transition-all hover:shadow-md dark:hover:shadow-indigo-900/20"
+                className="group bg-white dark:bg-slate-800/90 rounded-3xl p-7 border border-gray-100 dark:border-slate-700/50 shadow-[0_4px_20px_rgb(0,0,0,0.02)] hover:shadow-[0_20px_40px_rgb(0,0,0,0.06)] dark:shadow-[0_4px_20px_rgb(0,0,0,0.2)] dark:hover:shadow-[0_20px_40px_rgba(99,102,241,0.1)] hover:-translate-y-1.5 transition-all duration-300 flex flex-col justify-between"
               >
                 <div className="flex items-center justify-between mb-4">
                   <span className="text-sm font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider">
@@ -128,7 +134,7 @@ function Analytics() {
                     <Icon className="w-5 h-5" />
                   </div>
                 </div>
-                <p className="text-3xl font-extrabold tracking-tight text-gray-900 dark:text-white">
+                <p className="text-4xl font-extrabold tracking-tight text-gray-900 dark:text-white drop-shadow-sm">
                   {card.value}
                 </p>
               </div>
@@ -139,7 +145,7 @@ function Analytics() {
         {/* Charts */}
         <div className="grid lg:grid-cols-2 gap-8">
           {/* Pie Chart */}
-          <div className="bg-white dark:bg-slate-800 rounded-3xl border border-gray-100 dark:border-slate-700 shadow-sm p-8">
+          <div className="bg-white dark:bg-slate-800/90 backdrop-blur-xl rounded-[2rem] border border-gray-100 dark:border-slate-700/50 shadow-[0_8px_30px_rgb(0,0,0,0.04)] dark:shadow-[0_8px_30px_rgb(0,0,0,0.2)] p-8 transition-all hover:shadow-[0_20px_40px_rgb(0,0,0,0.08)] dark:hover:shadow-[0_20px_40px_rgba(99,102,241,0.1)]">
             <h3 className="text-lg font-bold tracking-tight text-gray-900 dark:text-white mb-6 border-b border-gray-100 dark:border-slate-700 pb-4">
               Event Status Distribution
             </h3>
@@ -165,7 +171,7 @@ function Analytics() {
           </div>
 
           {/* Bar Chart */}
-          <div className="bg-white dark:bg-slate-800 rounded-3xl border border-gray-100 dark:border-slate-700 shadow-sm p-8">
+          <div className="bg-white dark:bg-slate-800/90 backdrop-blur-xl rounded-[2rem] border border-gray-100 dark:border-slate-700/50 shadow-[0_8px_30px_rgb(0,0,0,0.04)] dark:shadow-[0_8px_30px_rgb(0,0,0,0.2)] p-8 transition-all hover:shadow-[0_20px_40px_rgb(0,0,0,0.08)] dark:hover:shadow-[0_20px_40px_rgba(99,102,241,0.1)]">
             <h3 className="text-lg font-bold tracking-tight text-gray-900 dark:text-white mb-6 border-b border-gray-100 dark:border-slate-700 pb-4">
               Platform Metrics
             </h3>

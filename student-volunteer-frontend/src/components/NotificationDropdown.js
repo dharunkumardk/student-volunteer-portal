@@ -43,7 +43,7 @@ function NotificationDropdown({ isOpen, setIsOpen }) {
   return (
     <div
       ref={dropdownRef}
-      className="absolute right-0 mt-2 w-80 sm:w-96 bg-white dark:bg-slate-800 rounded-2xl shadow-xl shadow-gray-200/50 dark:shadow-slate-900/50 border border-gray-100 dark:border-slate-700 z-50 overflow-hidden"
+      className="absolute right-0 mt-2 w-80 sm:w-96 glass dark:glass-dark rounded-[1.5rem] shadow-[0_10px_40px_rgb(0,0,0,0.08)] dark:shadow-[0_10px_40px_rgb(0,0,0,0.3)] border border-gray-100 dark:border-slate-700/50 z-50 overflow-hidden"
     >
       {/* Header */}
       <div className="flex items-center justify-between px-4 py-3 border-b border-gray-100 dark:border-slate-700 bg-gray-50/50 dark:bg-slate-800/50">

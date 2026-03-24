@@ -93,7 +93,7 @@ function EventDetails() {
         </button>
 
         {/* Event Header */}
-        <div className="bg-white dark:bg-slate-800 rounded-3xl p-8 border border-gray-100 dark:border-slate-700 shadow-sm mb-8">
+        <div className="bg-white dark:bg-slate-800/90 backdrop-blur-xl rounded-[2rem] p-10 border border-gray-100 dark:border-slate-700/50 shadow-[0_8px_30px_rgb(0,0,0,0.04)] dark:shadow-[0_8px_30px_rgb(0,0,0,0.2)] mb-10">
           <div className="flex justify-between items-start mb-4">
             <h1 className="text-3xl font-extrabold tracking-tight text-gray-900 dark:text-white mb-2 line-clamp-2">
               {event.title}
@@ -154,7 +154,7 @@ function EventDetails() {
               </div>
             ) : (
               feedbacks.map((f) => (
-                <div key={f._id} className="bg-white dark:bg-slate-800 p-6 rounded-3xl shadow-sm border border-gray-100 dark:border-slate-700 hover:border-indigo-100 dark:hover:border-indigo-900/50 transition-colors">
+                <div key={f._id} className="bg-white dark:bg-slate-800/90 p-8 rounded-3xl shadow-[0_4px_20px_rgb(0,0,0,0.02)] border border-gray-100 dark:border-slate-700/50 hover:shadow-[0_10px_30px_rgb(0,0,0,0.06)] dark:hover:shadow-[0_10px_30px_rgba(99,102,241,0.1)] hover:-translate-y-1 transition-all duration-300">
                   <div className="flex justify-between items-start mb-4">
                     <div className="flex items-center gap-3">
                       <div className="w-10 h-10 rounded-full bg-gradient-to-br from-indigo-100 to-indigo-200 dark:from-indigo-900/40 dark:to-indigo-800/40 text-indigo-700 dark:text-indigo-300 flex items-center justify-center font-bold shadow-sm">
@@ -184,7 +184,7 @@ function EventDetails() {
           {/* Leave Review Form */}
           <div className="md:col-span-1">
             {canLeaveFeedback ? (
-              <div className="bg-gradient-to-b from-indigo-50 to-white dark:from-slate-800/80 dark:to-slate-800 p-6 rounded-3xl border border-indigo-100 dark:border-indigo-900/40 shadow-xl shadow-indigo-100/20 dark:shadow-none sticky top-28 transition-all hover:-translate-y-1 duration-300">
+              <div className="glass dark:glass-dark p-8 rounded-[2rem] sticky top-28 transition-all hover:-translate-y-1 hover:shadow-[0_20px_40px_rgb(0,0,0,0.08)] dark:hover:shadow-[0_20px_40px_rgba(99,102,241,0.15)] duration-300">
                 <h3 className="font-bold text-lg mb-2 text-indigo-900 dark:text-white tracking-tight">Rate your experience</h3>
                 <p className="text-xs text-gray-500 dark:text-gray-400 mb-5 font-semibold">Your feedback helps organizers improve future events.</p>
                 <form onSubmit={submitFeedback} className="space-y-5">
@@ -211,7 +211,7 @@ function EventDetails() {
                     className="w-full bg-white dark:bg-slate-900 border border-gray-200 dark:border-slate-700 rounded-2xl px-4 py-3 focus:ring-4 focus:ring-indigo-500/20 dark:focus:ring-indigo-500/20 outline-none text-sm resize-none transition-all shadow-sm"
                   ></textarea>
                   
-                  <button type="submit" className="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-3 px-4 rounded-xl shadow-md shadow-indigo-200/50 dark:shadow-none transition-all active:scale-[0.98]">
+                  <button type="submit" className="w-full bg-gradient-to-r from-indigo-600 to-indigo-500 hover:from-indigo-700 hover:to-indigo-600 text-white font-bold py-3.5 px-4 rounded-xl shadow-lg shadow-indigo-600/20 hover:shadow-indigo-600/30 transition-all active:scale-[0.98] focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 dark:focus:ring-offset-slate-900 mt-2">
                     Submit Feedback
                   </button>
                 </form>

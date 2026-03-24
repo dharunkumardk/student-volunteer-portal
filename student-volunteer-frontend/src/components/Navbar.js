@@ -73,7 +73,7 @@ function Navbar() {
   };
 
   return (
-    <nav className="sticky top-0 z-50 bg-white/80 dark:bg-slate-900/80 backdrop-blur-md border-b border-gray-200 dark:border-slate-800 text-gray-800 dark:text-gray-200 px-8 py-4 shadow-sm flex justify-between items-center transition-all duration-300">
+    <nav className="sticky top-0 z-50 glass dark:glass-dark text-gray-800 dark:text-gray-200 px-8 py-4 flex justify-between items-center transition-all duration-300 border-x-0 border-t-0 rounded-none">
       
       <div className="flex items-center gap-3">
         <div className="w-10 h-10 bg-indigo-600 rounded-xl flex items-center justify-center shadow-indigo-200 shadow-lg text-white font-bold text-xl">
@@ -84,37 +84,37 @@ function Navbar() {
         </h1>
       </div>
 
-      <div className="flex items-center gap-6 text-sm font-semibold">
-        <Link to="/dashboard" className="text-gray-600 hover:text-indigo-600 transition-colors">
+      <div className="flex items-center gap-6 text-sm">
+        <Link to="/dashboard" className="font-medium text-gray-500 dark:text-gray-400 hover:text-indigo-600 dark:hover:text-indigo-400 hover:-translate-y-0.5 transition-all duration-200">
           Dashboard
         </Link>
-        <Link to="/leaderboard" className="text-gray-600 hover:text-indigo-600 transition-colors">
+        <Link to="/leaderboard" className="font-medium text-gray-500 dark:text-gray-400 hover:text-indigo-600 dark:hover:text-indigo-400 hover:-translate-y-0.5 transition-all duration-200">
           Leaderboard
         </Link>
-        {role === "student" && (
-          <Link to="/profile" className="text-gray-600 hover:text-indigo-600 transition-colors">
+        {(role === "student" || role === "organizer") && (
+          <Link to="/profile" className="font-medium text-gray-500 dark:text-gray-400 hover:text-indigo-600 dark:hover:text-indigo-400 hover:-translate-y-0.5 transition-all duration-200">
             Profile
           </Link>
         )}
 
         {role === "organizer" && (
-          <Link to="/create-event" className="text-gray-600 hover:text-indigo-600 transition-colors">
+          <Link to="/create-event" className="font-medium text-gray-500 dark:text-gray-400 hover:text-indigo-600 dark:hover:text-indigo-400 hover:-translate-y-0.5 transition-all duration-200">
             Create Event
           </Link>
         )}
 
         {role === "admin" && (
           <>
-            <Link to="/admin" className="text-gray-600 hover:text-indigo-600 transition-colors">
+            <Link to="/admin" className="font-medium text-gray-500 dark:text-gray-400 hover:text-indigo-600 dark:hover:text-indigo-400 hover:-translate-y-0.5 transition-all duration-200">
               Admin Panel
             </Link>
-            <Link to="/analytics" className="text-gray-600 hover:text-indigo-600 transition-colors">
+            <Link to="/analytics" className="font-medium text-gray-500 dark:text-gray-400 hover:text-indigo-600 dark:hover:text-indigo-400 hover:-translate-y-0.5 transition-all duration-200">
               Analytics
             </Link>
           </>
         )}
         {role === "student" && (
-          <Link to="/scan-qr" className="text-gray-600 hover:text-indigo-600 transition-colors">
+          <Link to="/scan-qr" className="font-medium text-gray-500 dark:text-gray-400 hover:text-indigo-600 dark:hover:text-indigo-400 hover:-translate-y-0.5 transition-all duration-200">
             Scan QR
           </Link>
         )}
@@ -171,7 +171,7 @@ function Navbar() {
               </div>
 
               <div className="py-1">
-                {role === "student" && (
+                {(role === "student" || role === "organizer") && (
                   <Link
                     to="/profile"
                     onClick={() => setIsProfileOpen(false)}

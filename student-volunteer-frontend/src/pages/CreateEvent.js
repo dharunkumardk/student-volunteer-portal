@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import Navbar from "../components/Navbar";
@@ -27,6 +27,23 @@ function CreateEvent() {
     hours: "",
     location: ""
   });
+
+  useEffect(() => {
+    const checkProfile = async () => {
+      try {
+        const res = await axios.get("http://localhost:5000/api/auth/me", {
+          headers: { Authorization: `Bearer ${token}` }
+        });
+        if (!res.data.profileCompleted || !res.data.phone || !res.data.dob) {
+          alert("Please complete your profile details (Phone, DOB, Blood Group, ID) before creating an event.");
+          navigate("/profile");
+        }
+      } catch (err) {
+        console.error("Profile check failed", err);
+      }
+    };
+    if (token) checkProfile();
+  }, [token, navigate]);
 
   const handleChange = (e) => {
     setFormData({
@@ -77,7 +94,7 @@ function CreateEvent() {
             </button>
             <button
               onClick={handleSubmit}
-              className="text-sm px-4 py-2 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white font-semibold shadow-md shadow-indigo-100 dark:shadow-none transition-all duration-200 active:scale-[0.98]"
+              className="text-sm px-5 py-2.5 rounded-xl bg-gradient-to-r from-indigo-600 to-indigo-500 hover:from-indigo-700 hover:to-indigo-600 text-white font-bold shadow-lg shadow-indigo-600/20 hover:shadow-indigo-600/30 active:scale-[0.98] transition-all focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 dark:focus:ring-offset-slate-900"
             >
               Publish Event
             </button>
@@ -91,7 +108,7 @@ function CreateEvent() {
         {/* Form Section */}
         <form
           onSubmit={handleSubmit}
-          className="lg:col-span-2 space-y-8 bg-white dark:bg-slate-800 p-8 rounded-3xl shadow-sm border border-gray-100 dark:border-slate-700"
+          className="lg:col-span-2 space-y-8 bg-white dark:bg-slate-800/90 p-10 rounded-[2rem] shadow-[0_4px_20px_rgb(0,0,0,0.03)] dark:shadow-[0_4px_20px_rgb(0,0,0,0.2)] border border-gray-100 dark:border-slate-700/50 backdrop-blur-xl"
         >
           {/* Basic Info */}
           <div className="space-y-6">
@@ -218,7 +235,7 @@ function CreateEvent() {
             <h3 className="text-sm font-bold text-gray-500 dark:text-gray-400 uppercase tracking-wider mb-4 px-1">
               Live Preview
             </h3>
-            <div className="bg-white dark:bg-slate-800 rounded-3xl border border-gray-100 dark:border-slate-700 shadow-xl shadow-gray-200/40 dark:shadow-none p-6 transition-all hover:-translate-y-1">
+            <div className="glass dark:glass-dark rounded-[2rem] p-8 transition-all hover:-translate-y-1 hover:shadow-[0_20px_40px_rgb(0,0,0,0.08)] dark:hover:shadow-[0_20px_40px_rgba(99,102,241,0.15)]">
               <div className="inline-flex items-center px-2.5 py-0.5 rounded-md text-xs font-semibold bg-indigo-50 dark:bg-indigo-900/30 text-indigo-700 dark:text-indigo-400 border border-indigo-100 dark:border-indigo-800/50 mb-4">
                 <span className="w-1.5 h-1.5 rounded-full bg-indigo-500 dark:bg-indigo-400 mr-1.5 animate-pulse"></span>
                 Draft

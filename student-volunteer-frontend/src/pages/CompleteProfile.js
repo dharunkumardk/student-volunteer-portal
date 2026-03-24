@@ -60,7 +60,7 @@ function CompleteProfile() {
     <div className="min-h-screen bg-slate-50 dark:bg-slate-900 transition-colors duration-300">
       <Navbar />
       <div className="max-w-2xl mx-auto p-6 md:p-12 mt-8">
-        <div className="bg-white dark:bg-slate-800 rounded-3xl shadow-xl p-8 md:p-10 border border-gray-100 dark:border-slate-700">
+        <div className="bg-white dark:bg-slate-800/90 backdrop-blur-xl rounded-[2rem] shadow-[0_8px_30px_rgb(0,0,0,0.04)] dark:shadow-[0_8px_30px_rgb(0,0,0,0.2)] p-10 border border-gray-100 dark:border-slate-700/50">
           <div className="text-center mb-8">
             <div className="w-16 h-16 bg-indigo-100 dark:bg-indigo-900/50 text-indigo-600 dark:text-indigo-400 rounded-2xl flex items-center justify-center text-3xl mb-4 mx-auto shadow-sm">
               📋

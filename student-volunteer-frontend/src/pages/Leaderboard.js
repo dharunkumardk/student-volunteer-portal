@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import API from "../utils/axiosInstance";
 import Navbar from "../components/Navbar";
 import { jwtDecode } from "jwt-decode";
+import { Trophy } from "lucide-react";
 
 function Leaderboard() {
   const token = localStorage.getItem("token") || sessionStorage.getItem("token");
@@ -79,9 +80,7 @@ function Leaderboard() {
         
         <div className="text-center mb-8">
           <div className="inline-flex items-center justify-center p-3 bg-indigo-100 dark:bg-indigo-900/40 rounded-2xl mb-4 text-indigo-600 dark:text-indigo-400 shadow-sm">
-            <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z" />
-            </svg>
+            <Trophy className="h-8 w-8" strokeWidth={2.5} />
           </div>
           <h2 className="text-4xl font-extrabold text-gray-900 dark:text-white tracking-tight">
             Leaderboard
